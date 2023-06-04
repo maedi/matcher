@@ -3,6 +3,6 @@
 ## Installation
 
 1. Run `bundle install --path vendor/bundle`
-2. Run `./matcher.rb`
+2. Run `bundle exec ruby matcher.rb`
 
-Most Ruby versions should work :)
+Built with Ruby 2.6 but should work with most versions.
