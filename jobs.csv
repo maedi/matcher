@@ -1,0 +1,10 @@
+id,title,required_skills
+1,Frontend Developer,"JavaScript,HTML,CSS"
+2,Backend Developer,"Java,C#,SQL"
+3,Full Stack Developer,"JavaScript,Ruby,HTML,CSS,SQL"
+4,Data Analyst,"SQL,Python,Statistics"
+5,Software Engineer,"Ruby,Python,Java"
+6,Systems Engineer,"C#,SQL,Dev Ops"
+7,JavaScript Developer,"JavaScript,HTML"
+8,Java Developer,"Java,SQL"
+9,Python Developer,"Python,SQL,"
