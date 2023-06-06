@@ -6,7 +6,7 @@ class Renderer
   end
 
   def render(results)
-    results.each do |result|
+    results.sort.to_h.each do |result|
       id, seeker = result
 
       sorted_matches = seeker.matches.sort_by { |id, value| [-value[:combo].count, id] }
