@@ -24,11 +24,11 @@ class CombinationTree
     # Remove terms from the end of the combination.
     # [a, b, c, d]
     #           ^
-    local_combo = combination.clone
-    local_terms = terms.clone
-    while local_terms.count > 0
-      local_terms.pop
-      create_or_update_branch(local_terms, item)
+    local_combo = terms.clone
+    local_combo.pop
+    while local_combo.count > 0
+      create_or_update_branch(local_combo.clone, item)
+      local_combo.pop
     end
 
     # Remove terms from the start of the combination and do it all again for each smaller recursive branch.
