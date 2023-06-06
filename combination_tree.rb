@@ -13,14 +13,27 @@ class CombinationTree
   def branch(combination, terms, item = nil)
     terms = terms.sort.map(&:downcase)
 
+    # Each branch combination is unique until the last singular combination, which isn't, and would result in duplicates.
+    # So instead we create the last branch once and terminate each recursive branch before it gets to that point.
+    create_or_update_branch([terms.last], item) if combination.empty?
+
+    # Define the current branch.
     combination << terms.shift
-    combination_key = create_key(combination)
-    
-    if combination.count >= @combination_min
-      @tree[combination_key] = branch_data(combination) unless @tree.include? combination_key
-      @tree[combination_key][:items] << item unless item.nil?
+    create_or_update_branch(combination, item)
+
+    # Remove terms from the end of the combination.
+    # [a, b, c, d]
+    #           ^
+    local_combo = combination.clone
+    local_terms = terms.clone
+    while local_terms.count > 0
+      local_terms.pop
+      create_or_update_branch(local_terms, item)
     end
 
+    # Remove terms from the start of the combination and do it all again for each smaller recursive branch.
+    # [a, b, c, d]
+    #  ^
     while terms.count > 0
       branch(combination.clone, terms.clone, item)
       terms.shift
@@ -28,6 +41,15 @@ class CombinationTree
   end
 
   private
+
+  def create_or_update_branch(combination, item)
+    return if combination.count <= @combination_min
+
+    combination_key = create_key(combination)
+
+    @tree[combination_key] = branch_data(combination) unless @tree.include? combination_key
+    @tree[combination_key][:items] << item unless item.nil?
+  end
 
   def branch_data(combination)
     {

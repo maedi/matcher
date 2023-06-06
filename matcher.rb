@@ -58,6 +58,10 @@ class Matcher
 
       job_branch[:items].each do |job_id|
         # Don't overwrite existing matches with larger combinations.
+        # An advanced performance optimisation would be to create multiple smaller/specific `CombinationTree`s,
+        # based on some reductive characteristic of:
+        # - The job seeker such as amount of skills entered or years of experience
+        # - The job such as whether it's an active listing
         unless matches.include?(job_id) && matches[job_id][:combo].count > job_branch[:combo].count
           matches[job_id] = match_data(job_branch[:combo], job_id)
         end
