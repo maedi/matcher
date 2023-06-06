@@ -13,6 +13,10 @@ class CombinationTree
   def branch(combination, terms, item = nil)
     terms = terms.sort.map(&:downcase)
 
+    branch_recursively(combination, terms, item)
+  end
+
+  def branch_recursively(combination, terms, item)
     # Each branch combination is unique until the last singular combination, which isn't, and would result in duplicates.
     # So instead we create the last branch once and terminate each recursive branch before it gets to that point.
     create_or_update_branch([terms.last], item) if combination.empty?
@@ -35,7 +39,7 @@ class CombinationTree
     # [a, b, c, d]
     #  ^
     while terms.count > 0
-      branch(combination.clone, terms.clone, item)
+      branch_recursively(combination.clone, terms.clone, item)
       terms.shift
     end
   end
