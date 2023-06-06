@@ -79,6 +79,8 @@ class Matcher
   end
 
   def normalize_line(line)
-    line.strip.delete('"').split(',')
+    id, *values = line.strip.delete('"').split(',')
+
+    [id.to_i, *values]
   end
 end
