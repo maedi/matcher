@@ -2,6 +2,7 @@ require 'pry'
 require_relative 'job'
 require_relative 'seeker'
 require_relative 'combination_tree'
+require_relative 'renderer'
 
 class Matcher
   def initialize
@@ -13,7 +14,9 @@ class Matcher
   def match(jobs_path, seekers_path)
     build_jobs(jobs_path)
     build_seekers(seekers_path)
-    binding.pry
+
+    renderer = Renderer.new(@jobs)
+    renderer.render(@seekers)
   end
 
   private
