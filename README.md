@@ -12,6 +12,11 @@ Built with Ruby 2.6 but should work with most versions.
 
 Run `bundle exec ruby match.rb`
 
+## Benchmark
+
+X1:   0.001997   0.000395   0.002392 (  0.004050)
+X2:   0.002025   0.000245   0.002270 (  0.003856)
+
 ## Description
 
 I could have gone for a simple for-loop that went through each job seeker, then for that job seeker looped through each job and matched skills... but that wouldn't scale well as jobs and job seekers increased. I haven't researched the best way to do this, instead in the spirit of hacking and experimentation I have created a "Combination Tree" that allows for `O(1)` matching of a job seeker to jobs matching those skills. Essentially the time complexity of jobs/seekers is moved to the space complexity of skills. The combinations of skills grows exponentially as they are added, but it's the one dataset out of the 3 (job/seeker/skill) that is more controllable. On a practical level as job seekers increase in volumne, their skills start to cluster into smaller and more specific combinations. That's the theory anyway, more real world data, tweaking and benchmarking is needed :)

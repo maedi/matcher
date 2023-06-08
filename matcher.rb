@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 require 'pry'
+require 'benchmark'
 require_relative 'job'
 require_relative 'seeker'
 require_relative 'combination_tree'
 require_relative 'renderer'
 
 class Matcher
+  DATA_PATH = 'data/'
+
   def initialize
     @jobs = {}
     @job_tree = CombinationTree.new
@@ -12,8 +17,10 @@ class Matcher
   end
 
   def match(jobs_path, seekers_path)
-    build_jobs(jobs_path)
-    build_seekers(seekers_path)
+    puts Benchmark.measure {
+      build_jobs(jobs_path)
+      build_seekers(seekers_path)
+    }
 
     renderer = Renderer.new(@jobs)
     renderer.render(@seekers)
@@ -22,7 +29,7 @@ class Matcher
   private
 
   def build_jobs(jobs_path)
-    jobs_path = 'jobs.csv' if jobs_path.nil?
+    jobs_path = DATA_PATH + 'jobsX2.csv' if jobs_path.nil?
 
     File.readlines(jobs_path).each_with_index do |line, index|
       next if index == 0
@@ -36,7 +43,7 @@ class Matcher
   end
 
   def build_seekers(seekers_path)
-    seekers_path = 'jobseekers.csv' if seekers_path.nil?
+    seekers_path = DATA_PATH + 'jobseekers.csv' if seekers_path.nil?
 
     File.readlines(seekers_path).each_with_index do |line, index|
       next if index == 0
